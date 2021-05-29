@@ -2,7 +2,7 @@
 
 /**
  * @package   Psource\SiteReviews
- * @copyright Copyright (c) 2016, Paul Ryley
+ * @copyright Copyright (c) 2021, DerN3rd
  * @license   GPLv3
  * @since     1.0.0
  * -------------------------------------------------------------------------------------------------
@@ -19,8 +19,8 @@ class RegisterPostType
 	public function __construct( $input )
 	{
 		$columns = [
-			'title' => __( 'Title', 'site-reviews' ),
-			'date'  => __( 'Date', 'site-reviews' ),
+			'title' => __( 'Titel', 'site-reviews' ),
+			'date'  => __( 'Datum', 'site-reviews' ),
 		];
 
 		$defaults = [

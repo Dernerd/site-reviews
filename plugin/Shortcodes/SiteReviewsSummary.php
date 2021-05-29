@@ -4,7 +4,7 @@
  * Site Reviews Sumary shortcode
  *
  * @package   Psource\SiteReviews
- * @copyright Copyright (c) 2016, Paul Ryley
+ * @copyright Copyright (c) 2021, DerN3rd
  * @license   GPLv3
  * @since     2.3.0
  * -------------------------------------------------------------------------------------------------

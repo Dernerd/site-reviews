@@ -497,7 +497,7 @@ class Settings
 				'invisible-recaptcha' => _x( 'Plugin eines Drittanbieters verwenden: Unsichtbares reCaptcha', 'plugin name', 'site-reviews' ),
 			],
 			'desc'  => sprintf( __( 'Invisible reCAPTCHA ist ein kostenloser Anti-Spam-Dienst von Google. Um es zu verwenden, benötigst Du %s für ein API-Schlüsselpaar für Deine Webseite. Falls Du bereits ein hier aufgeführtes reCAPTCHA-Plugin verwendest, wähle es bitte aus; ansonsten "reCAPTCHA verwenden" wählen.', 'site-reviews' ),
-				sprintf( '<a href="https://www.google.com/recaptcha/admin" target="_blank">%s</a>', __( 'sign up', 'site-reviews' ))
+				sprintf( '<a href="https://www.google.com/recaptcha/admin" target="_blank">%s</a>', __( 'Anmeldedaten', 'site-reviews' ))
 			),
 		]);
 
