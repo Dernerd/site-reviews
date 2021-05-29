@@ -3,7 +3,7 @@
  * Plugin Name: Webseiten-Bewertungen
  * Plugin URI:  https://wordpress.org/plugins/site-reviews
  * Description: Erhalten und Anzeigen von Webseiten-Bewertungen
- * Version:     2.2.0
+ * Version:     2.2.2
  * Author:      DerN3rd
  * Author URI:  https//n3rds.work
  * License:     GPL2

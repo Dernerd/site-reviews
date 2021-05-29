@@ -2,7 +2,7 @@
 
 /**
  * @package   Psource\SiteReviews
- * @copyright Copyright (c) 2016, Paul Ryley
+ * @copyright Copyright (c) 2021, DerN3rd
  * @license   GPLv3
  * @since     1.0.0
  * -------------------------------------------------------------------------------------------------
@@ -158,57 +158,57 @@ class Settings
 		$this->html->createForm( $formId, [
 			'action' => admin_url( 'options.php' ),
 			'nonce'  => $this->app->id . '-settings',
-			'submit' => __( 'Save Settings', 'site-reviews' ),
+			'submit' => __( 'Einstellungen speichern', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'yesno_inline',
 			'name'    => 'require.approval',
-			'label'   => __( 'Require approval', 'site-reviews' ),
+			'label'   => __( 'Genehmigung erforderlich', 'site-reviews' ),
 			'default' => 'yes',
-			'desc'    => __( 'Set the status of new review submissions to pending.', 'site-reviews' ),
+			'desc'    => __( 'Setze den Status neuer Überprüfungseinreichungen auf ausstehend.', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'yesno_inline',
 			'name'  => 'require.login',
-			'label' => __( 'Require login', 'site-reviews' ),
-			'desc'  => __( 'Only allow review submissions from registered users.', 'site-reviews' ),
+			'label' => __( 'Anmeldung erforderlich', 'site-reviews' ),
+			'desc'  => __( 'Erlaube nur Bewertungsbeiträge von registrierten Benutzern.', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'yesno_inline',
 			'name'    => 'require.login_register',
-			'label'   => __( 'Show registration link', 'site-reviews' ),
+			'label'   => __( 'Registrierungslink anzeigen', 'site-reviews' ),
 			'depends' => [
 				'require.login' => 'yes',
 			],
-			'desc' => sprintf( __( 'Show a link for a new user to register. The %s Membership option must be enabled in General Settings for this to work.', 'site-reviews' ),
-				sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php' ), __( 'Anyone can register', 'site-reviews' ))
+			'desc' => sprintf( __( 'Zeige einen Link für einen neuen Benutzer an, um sich zu registrieren. Die Option %s Mitgliedschaft muss in den allgemeinen Einstellungen aktiviert sein, damit dies funktioniert.', 'site-reviews' ),
+				sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php' ), __( 'Jeder kann sich registrieren', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'radio',
 			'name'    => 'notification',
-			'label'   => __( 'Notifications', 'site-reviews' ),
+			'label'   => __( 'Benachrichtigungen', 'site-reviews' ),
 			'default' => 'none',
 			'options' => [
-				'none'    => __( 'Do not send review notifications', 'site-reviews' ),
-				'default' => __( 'Send to administrator', 'site-reviews' ) . sprintf( ' <code>%s</code>', (string) get_option( 'admin_email' )),
-				'custom'  => __( 'Send to one or more email addresses', 'site-reviews' ),
-				'webhook' => sprintf( __( 'Send to %s', 'site-reviews' ), '<a href="https://slack.com/">Slack</a>' ),
+				'none'    => __( 'Keine Bewertungsbenachrichtigungen senden', 'site-reviews' ),
+				'default' => __( 'An Administrator senden', 'site-reviews' ) . sprintf( ' <code>%s</code>', (string) get_option( 'admin_email' )),
+				'custom'  => __( 'An eine oder mehrere E-Mail-Adressen senden', 'site-reviews' ),
+				'webhook' => sprintf( __( 'Senden an %s', 'site-reviews' ), '<a href="https://slack.com/">Slack</a>' ),
 			],
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'text',
 			'name'    => 'notification_email',
-			'label'   => __( 'Send notification emails to', 'site-reviews' ),
+			'label'   => __( 'Benachrichtigungs-E-Mails senden an', 'site-reviews' ),
 			'depends' => [
 				'notification' => 'custom',
 			],
-			'placeholder' => __( 'Separate multiple emails with a comma', 'site-reviews' ),
+			'placeholder' => __( 'Trenne mehrere E-Mails mit einem Komma', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
@@ -218,30 +218,30 @@ class Settings
 			'depends' => [
 				'notification' => 'webhook',
 			],
-			'desc' => sprintf( __( 'To send notifications to Slack, create a new %s and then paste the provided Webhook URL in the field above.', 'site-reviews' ),
-				sprintf( '<a href="%s">%s</a>', esc_url( 'https://slack.com/apps/new/A0F7XDUAZ-incoming-webhooks' ), __( 'Incoming WebHook', 'site-reviews' ))
+			'desc' => sprintf( __( 'Um Benachrichtigungen an Slack zu senden, erstelle ein neues %s und füge die angegebene Webhook-URL in das Feld oben ein.', 'site-reviews' ),
+				sprintf( '<a href="%s">%s</a>', esc_url( 'https://slack.com/apps/new/A0F7XDUAZ-incoming-webhooks' ), __( 'Eingehender WebHook', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'code',
 			'name'    => 'notification_message',
-			'label'   => __( 'Notification template', 'site-reviews' ),
+			'label'   => __( 'Benachrichtigungsvorlage', 'site-reviews' ),
 			'rows'    => 10,
 			'depends' => [
 				'notification' => ['custom', 'default', 'webhook'],
 			],
 			'default' => $this->html->renderTemplate( 'email/templates/review-notification', [] ),
-			'desc' => 'To restore the default text, save an empty template.
-				If you are sending notifications to Slack then this template will only be used as a fallback in the event that <a href="https://api.slack.com/docs/attachments">Message Attachments</a> have been disabled.<br>
-				Available template tags:<br>
-				<code>{review_rating}</code> - The review rating number (1-5)<br>
-				<code>{review_title}</code> - The review title<br>
-				<code>{review_content}</code> - The review content<br>
-				<code>{review_author}</code> - The review author<br>
-				<code>{review_email}</code> - The email of the review author<br>
-				<code>{review_ip}</code> - The IP address of the review author<br>
-				<code>{review_link}</code> - The link to edit/view a review',
+			'desc' => 'Um den Standardtext wiederherzustellen, speichere eine leere Vorlage.
+				Wenn Du Benachrichtigungen an Slack sendest, wird diese Vorlage nur als Fallback verwendet, falls <a href="https://api.slack.com/docs/attachments">Nachrichtenanhänge</a> deaktiviert wurden.<br>
+				Verfügbare Vorlagen-Tags:<br>
+				<code>{review_rating}</code> - Die Bewertungsnummer (1-5)<br>
+				<code>{review_title}</code> - Der Rezensionstitel<br>
+				<code>{review_content}</code> - Der Inhalt der Rezension<br>
+				<code>{review_author}</code> - Der Autor der Rezension<br>
+				<code>{review_email}</code> - Die E-Mail des Rezensionsautors<br>
+				<code>{review_ip}</code> - Die IP-Adresse des Rezensionsautors<br>
+				<code>{review_link}</code> - Der Link zum Bearbeiten/Anzeigen einer Bewertung',
 		]);
 	}
 
@@ -255,30 +255,30 @@ class Settings
 		$this->html->createForm( $formId, [
 			'action' => admin_url( 'options.php' ),
 			'nonce'  => $this->app->id . '-settings',
-			'submit' => __( 'Save Settings', 'site-reviews' ),
+			'submit' => __( 'Einstellungen speichern', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'date.format',
-			'label' => __( 'Date Format', 'site-reviews' ),
+			'label' => __( 'Datumsformat', 'site-reviews' ),
 			'options' => [
-				'default' => __( 'Use the default date format', 'site-reviews' ),
-				'relative' => __( 'Use a relative date format', 'site-reviews' ),
-				'custom' => __( 'Use a custom date format', 'site-reviews' ),
+				'default' => __( 'Verwende das Standard-Datumsformat', 'site-reviews' ),
+				'relative' => __( 'Verwende ein relatives Datumsformat', 'site-reviews' ),
+				'custom' => __( 'Verwende ein benutzerdefiniertes Datumsformat', 'site-reviews' ),
 			],
-			'desc'  => sprintf( __( 'The default date format is the one set in your %s.', 'site-reviews' ),
-				sprintf( '<a href="%s">%s<a>', get_admin_url( null, 'options-general.php' ), __( 'WordPress settings', 'site-reviews' ))
+			'desc'  => sprintf( __( 'Das Standard-Datumsformat ist das in %s festgelegte.', 'site-reviews' ),
+				sprintf( '<a href="%s">%s<a>', get_admin_url( null, 'options-general.php' ), __( 'Einstellungen', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'text',
 			'name'    => 'date.custom',
-			'label'   => __( 'Custom Date Format', 'site-reviews' ),
+			'label'   => __( 'Benutzerdefiniertes Datumsformat', 'site-reviews' ),
 			'default' => get_option( 'date_format' ),
-			'desc'    => sprintf( __( 'Enter a custom date format (%s).', 'site-reviews' ),
-				sprintf( '<a href="https://codex.wordpress.org/Formatting_Date_and_Time">%s</a>', __( 'documentation on date and time formatting', 'site-reviews' ))
+			'desc'    => sprintf( __( 'Gib ein benutzerdefiniertes Datumsformat ein (%s).', 'site-reviews' ),
+				sprintf( '<a href="https://codex.wordpress.org/Formatting_Date_and_Time">%s</a>', __( 'Dokumentation zur Datums- und Uhrzeitformatierung', 'site-reviews' ))
 			),
 			'depends' => [
 				'date.format' => 'custom',
@@ -288,15 +288,15 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'yesno_inline',
 			'name'  => 'assigned_links.enabled',
-			'label' => __( 'Enable Assigned Links', 'site-reviews' ),
-			'desc'  => __( 'Display a link to the assigned post of a review.', 'site-reviews' ),
+			'label' => __( 'Zugewiesene Links aktivieren', 'site-reviews' ),
+			'desc'  => __( 'Zeige einen Link zum zugewiesenen Beitrag einer Bewertung an.', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'yesno_inline',
 			'name'  => 'avatars.enabled',
-			'label' => __( 'Enable Avatars', 'site-reviews' ),
-			'desc'  => sprintf( __( 'Display reviewer avatars. These are generated from the email address of the reviewer using %s.', 'site-reviews' ),
+			'label' => __( 'Avatare aktivieren', 'site-reviews' ),
+			'desc'  => sprintf( __( 'Rezensent-Avatare anzeigen. Diese werden aus der E-Mail-Adresse des Rezensenten mit %s generiert.', 'site-reviews' ),
 				sprintf( '<a href="https://gravatar.com">%s</a>', __( 'Gravatar', 'site-reviews' ))
 			),
 		]);
@@ -304,16 +304,16 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'yesno_inline',
 			'name'  => 'excerpt.enabled',
-			'label' => __( 'Enable Excerpts', 'site-reviews' ),
-			'desc'  => __( 'Display an excerpt instead of the full review.', 'site-reviews' ),
+			'label' => __( 'Auszüge aktivieren', 'site-reviews' ),
+			'desc'  => __( 'Einen Auszug statt der vollständigen Rezension anzeigen.', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'number',
 			'name'    => 'excerpt.length',
-			'label'   => __( 'Excerpt Length', 'site-reviews' ),
+			'label'   => __( 'Auszug Länge', 'site-reviews' ),
 			'default' => '55',
-			'desc'    => __( 'Set the excerpt word length.', 'site-reviews' ),
+			'desc'    => __( 'Stelle die Wortlänge des Auszugs ein.', 'site-reviews' ),
 			'depends' => [
 				'excerpt.enabled' => 'yes',
 			],
@@ -322,57 +322,57 @@ class Settings
 		$this->html->addfield( $formId, [
 			'type'  => 'heading',
 			'value' => __( 'Rich Snippets (schema.org)', 'site-reviews' ),
-			'desc'  => __( 'Review snippets appear in Google Search results and include the star rating and other summary info from your reviews.', 'site-reviews' ),
+			'desc'  => __( 'Bewertungs-Snippets erscheinen in den Ergebnissen der Google-Suche und enthalten die Sternebewertung und andere zusammenfassende Informationen aus Deinen Bewertungen.', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'schema.type.default',
-			'label' => __( 'Default Schema Type', 'site-reviews' ),
+			'label' => __( 'Standardschematyp', 'site-reviews' ),
 			'default' => 'LocalBusiness',
 			'options' => [
-				'LocalBusiness' => __( 'Local Business', 'site-reviews' ),
-				'Product' => __( 'Product', 'site-reviews' ),
-				'custom' => __( 'Custom', 'site-reviews' ),
+				'LocalBusiness' => __( 'Lokales Geschäft', 'site-reviews' ),
+				'Product' => __( 'Produkt', 'site-reviews' ),
+				'custom' => __( 'Benutzerdefiniert', 'site-reviews' ),
 			],
-			'desc' => sprintf( __( 'This is the default schema type for the item being reviewed. You can override this option on a per-post/page basis by adding a %s metadata value using %s.', 'site-reviews' ),
+			'desc' => sprintf( __( 'Dies ist der Standardschematyp für das überprüfte Element. Du kannst diese Option pro Beitrag/Seite überschreiben, indem Du mit %s einen %s-Metadatenwert hinzufügst.', 'site-reviews' ),
 				'<code>schema_type</code>',
-				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Custom Fields', 'site-reviews' ))
+				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Benutzerdefinierte Felder', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'schema.type.custom',
-			'label' => __( 'Custom Schema Type', 'site-reviews' ),
+			'label' => __( 'Benutzerdefinierter Schematyp', 'site-reviews' ),
 			'depends' => [
 				'schema.type.default' => 'custom',
 			],
 			'desc' => sprintf(
-				__( 'Google supports review ratings for the following schema content types: Local businesses, Movies, Books, Music, and Products. %s', 'site-reviews' ),
-				sprintf( '<a href="https://schema.org/docs/schemas.html">%s</a>', __( 'View more information on schema types here.', 'site-reviews' ))
+				__( 'Google supports review ratings for the following schema content types: Regionale Unternehmen, Movies, Books, Music, and Products. %s', 'site-reviews' ),
+				sprintf( '<a href="https://schema.org/docs/schemas.html">%s</a>', __( 'Weitere Informationen zu Schematypen findest Du hier.', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'schema.name.default',
-			'label' => __( 'Default Name', 'site-reviews' ),
+			'label' => __( 'Standardname', 'site-reviews' ),
 			'default' => 'post',
 			'options' => [
-				'post' => __( 'Use the assigned or current page title', 'site-reviews' ),
-				'custom' => __( 'Enter a custom title', 'site-reviews' ),
+				'post' => __( 'Verwende den zugewiesenen oder aktuellen Seitentitel', 'site-reviews' ),
+				'custom' => __( 'Gib einen benutzerdefinierten Titel ein', 'site-reviews' ),
 			],
-			'desc' => sprintf( __( 'This is the default name of the item being reviewed. You can override this option on a per-post/page basis by adding a %s metadata value using %s.', 'site-reviews' ),
+			'desc' => sprintf( __( 'Dies ist der Standardname des überprüften Elements. Du kannst diese Option pro Beitrag/Seite überschreiben, indem Du mit %s einen %s-Metadatenwert hinzufügst.', 'site-reviews' ),
 				'<code>schema_name</code>',
-				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Custom Fields', 'site-reviews' ))
+				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Benutzerdefinierte Felder', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'schema.name.custom',
-			'label' => __( 'Custom Name', 'site-reviews' ),
+			'label' => __( 'Benutzerdefinierter Name', 'site-reviews' ),
 			'depends' => [
 				'schema.name.default' => 'custom',
 			],
@@ -381,22 +381,22 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'schema.description.default',
-			'label' => __( 'Default Description', 'site-reviews' ),
+			'label' => __( 'Standardbeschreibung', 'site-reviews' ),
 			'default' => 'post',
 			'options' => [
-				'post' => __( 'Use the assigned or current page excerpt', 'site-reviews' ),
-				'custom' => __( 'Enter a custom description', 'site-reviews' ),
+				'post' => __( 'Verwende den zugewiesenen oder aktuellen Seitenauszug', 'site-reviews' ),
+				'custom' => __( 'Gib eine benutzerdefinierte Beschreibung ein', 'site-reviews' ),
 			],
-			'desc' => sprintf( __( 'This is the default description for the item being reviewed. You can override this option on a per-post/page basis by adding a %s metadata value using %s.', 'site-reviews' ),
+			'desc' => sprintf( __( 'Dies ist die Standardbeschreibung für den Artikel, der überprüft wird. Du kannst diese Option pro Beitrag/Seite überschreiben, indem Du mit %s einen %s-Metadatenwert hinzufügst.', 'site-reviews' ),
 				'<code>schema_description</code>',
-				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Custom Fields', 'site-reviews' ))
+				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Benutzerdefinierte Felder', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'schema.description.custom',
-			'label' => __( 'Custom Description', 'site-reviews' ),
+			'label' => __( 'Benutzerdefinierte Beschreibung', 'site-reviews' ),
 			'depends' => [
 				'schema.description.default' => 'custom',
 			],
@@ -405,22 +405,22 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'schema.url.default',
-			'label' => __( 'Default URL', 'site-reviews' ),
+			'label' => __( 'Standard-URL', 'site-reviews' ),
 			'default' => 'post',
 			'options' => [
-				'post' => __( 'Use the assigned or current page URL', 'site-reviews' ),
-				'custom' => __( 'Enter a custom URL', 'site-reviews' ),
+				'post' => __( 'Verwende die zugewiesene oder aktuelle Seiten-URL', 'site-reviews' ),
+				'custom' => __( 'Gib eine benutzerdefinierte URL ein', 'site-reviews' ),
 			],
-			'desc' => sprintf( __( 'This is the default URL for the item being reviewed. You can override this option on a per-post/page basis by adding a %s metadata value using %s.', 'site-reviews' ),
+			'desc' => sprintf( __( 'Dies ist die Standard-URL für den überprüften Artikel. Du kannst diese Option pro Beitrag/Seite überschreiben, indem Du mit %s einen %s-Metadatenwert hinzufügst.', 'site-reviews' ),
 				'<code>schema_url</code>',
-				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Custom Fields', 'site-reviews' ))
+				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Benutzerdefinierte Felder', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'schema.url.custom',
-			'label' => __( 'Custom URL', 'site-reviews' ),
+			'label' => __( 'Eigene URL', 'site-reviews' ),
 			'depends' => [
 				'schema.url.default' => 'custom',
 			],
@@ -429,22 +429,22 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'schema.image.default',
-			'label' => __( 'Default Image', 'site-reviews' ),
+			'label' => __( 'Standardbild', 'site-reviews' ),
 			'default' => 'post',
 			'options' => [
-				'post' => __( 'Use the featured image of the assigned or current page', 'site-reviews' ),
-				'custom' => __( 'Enter a custom image URL', 'site-reviews' ),
+				'post' => __( 'Verwende das vorgestellte Bild der zugewiesenen oder aktuellen Seite', 'site-reviews' ),
+				'custom' => __( 'Gib eine benutzerdefinierte Bild-URL ein', 'site-reviews' ),
 			],
-			'desc' => sprintf( __( 'This is the default image for the item being reviewed. You can override this option on a per-post/page basis by adding a %s metadata value using %s.', 'site-reviews' ),
+			'desc' => sprintf( __( 'Dies ist das Standardbild für den überprüften Artikel. Du kannst diese Option pro Beitrag/Seite überschreiben, indem Du mit %s einen %s-Metadatenwert hinzufügst.', 'site-reviews' ),
 				'<code>schema_image</code>',
-				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Custom Fields', 'site-reviews' ))
+				sprintf( '<a href="https://codex.wordpress.org/Using_Custom_Fields#Usage">%s</a>', __( 'Benutzerdefinierte Felder', 'site-reviews' ))
 			),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'schema.image.custom',
-			'label' => __( 'Custom Image URL', 'site-reviews' ),
+			'label' => __( 'Benutzerdefinierte Bild-URL', 'site-reviews' ),
 			'depends' => [
 				'schema.image.default' => 'custom',
 			],
@@ -461,17 +461,17 @@ class Settings
 		$this->html->createForm( $formId, [
 			'action' => admin_url( 'options.php' ),
 			'nonce'  => $this->app->id . '-settings',
-			'submit' => __( 'Save Settings', 'site-reviews' ),
+			'submit' => __( 'Einstellungen speichern', 'site-reviews' ),
 		]);
 
 		$this->addSetting( $formId, [
 			'type'    => 'checkbox',
 			'name'    => 'required',
-			'label'   => __( 'Required Fields', 'site-reviews' ),
+			'label'   => __( 'Benötigte Felder', 'site-reviews' ),
 			'default' => ['title','content','name','email'],
 			'options' => [
-				'title' => __( 'Title', 'site-reviews' ),
-				'content' => __( 'Review', 'site-reviews' ),
+				'title' => __( 'Titel', 'site-reviews' ),
+				'content' => __( 'Rezension', 'site-reviews' ),
 				'name' => __( 'Name', 'site-reviews' ),
 				'email' => __( 'Email', 'site-reviews' ),
 			],
@@ -480,9 +480,9 @@ class Settings
 		$this->addSetting( $formId, [
 			'type' => 'yesno_inline',
 			'name' => 'akismet',
-			'label' => __( 'Enable Akismet Integration', 'site-reviews' ),
+			'label' => __( 'Akismet-Integration aktivieren', 'site-reviews' ),
 			'default' => 'no',
-			'desc' => sprintf( __( 'the %s integration provides spam-filtering for your reviews. In order for this setting to have any affect, you will need to first install and activate the Akismet plugin and set up a WordPress.com API key.', 'site-reviews' ),
+			'desc' => sprintf( __( 'die %s-Integration bietet Spam-Filter für Deine Bewertungen. Damit diese Einstellung wirksam wird, musst Du zuerst das Akismet-Plugin installieren und aktivieren und einen WordPress.com-API-Schlüssel einrichten.', 'site-reviews' ),
 				sprintf( '<a href="https://akismet.com" target="_blank">%s</a>', __( 'Akismet plugin', 'site-reviews' ))
 			),
 		]);
@@ -490,13 +490,13 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'select',
 			'name'  => 'recaptcha.integration',
-			'label' => __( 'Invisible reCAPTCHA', 'site-reviews' ),
+			'label' => __( 'Unsichtbares reCAPTCHA', 'site-reviews' ),
 			'options' => [
-				'' => __( 'Do not use reCAPTCHA', 'site-reviews' ),
-				'custom' => __( 'Use reCAPTCHA', 'site-reviews' ),
-				'invisible-recaptcha' => _x( 'Use 3rd-party plugin: Invisible reCaptcha', 'plugin name', 'site-reviews' ),
+				'' => __( 'Verwende reCAPTCHA nicht', 'site-reviews' ),
+				'custom' => __( 'Verwende reCAPTCHA', 'site-reviews' ),
+				'invisible-recaptcha' => _x( 'Plugin eines Drittanbieters verwenden: Unsichtbares reCaptcha', 'plugin name', 'site-reviews' ),
 			],
-			'desc'  => sprintf( __( 'Invisible reCAPTCHA is a free anti-spam service from Google. To use it, you will need to %s for an API key pair for your site. If you are already using a reCAPTCHA plugin listed here, please select it; otherwise choose "Use reCAPTCHA".', 'site-reviews' ),
+			'desc'  => sprintf( __( 'Invisible reCAPTCHA ist ein kostenloser Anti-Spam-Dienst von Google. Um es zu verwenden, benötigst Du %s für ein API-Schlüsselpaar für Deine Webseite. Falls Du bereits ein hier aufgeführtes reCAPTCHA-Plugin verwendest, wähle es bitte aus; ansonsten "reCAPTCHA verwenden" wählen.', 'site-reviews' ),
 				sprintf( '<a href="https://www.google.com/recaptcha/admin" target="_blank">%s</a>', __( 'sign up', 'site-reviews' ))
 			),
 		]);
@@ -504,7 +504,7 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'recaptcha.key',
-			'label' => __( 'Site Key', 'site-reviews' ),
+			'label' => __( 'Webseiten-Schlüssel', 'site-reviews' ),
 			'depends' => [
 				'recaptcha.integration' => 'custom',
 			],
@@ -513,7 +513,7 @@ class Settings
 		$this->addSetting( $formId, [
 			'type'  => 'text',
 			'name'  => 'recaptcha.secret',
-			'label' => __( 'Site Secret', 'site-reviews' ),
+			'label' => __( 'Webseiten-Secret', 'site-reviews' ),
 			'depends' => [
 				'recaptcha.integration' => 'custom',
 			],
@@ -524,8 +524,8 @@ class Settings
 			'name'  => 'recaptcha.position',
 			'label' => __( 'Badge Position', 'site-reviews' ),
 			'options' => [
-				'bottomleft' => 'Bottom Left',
-				'bottomright' => 'Bottom Right',
+				'bottomleft' => 'Unten links',
+				'bottomright' => 'Unten rechts',
 				'inline' => 'Inline',
 			],
 			'depends' => [
@@ -536,8 +536,8 @@ class Settings
 		$this->addSetting( $formId, [
 			'type' => 'textarea',
 			'name' => 'blacklist.entries',
-			'label' => __( 'Review Blacklist', 'site-reviews' ),
-			'desc' => __( 'When a review contains any of these words in its title, content, name, email, or IP address, it will be rejected. One word or IP address per line. It will match inside words, so "press" will match "WordPress".', 'site-reviews' ),
+			'label' => __( 'Rezension Blacklist', 'site-reviews' ),
+			'desc' => __( 'Wenn eine Bewertung eines dieser Wörter in Titel, Inhalt, Name, E-Mail-Adresse oder IP-Adresse enthält, wird sie abgelehnt. Ein Wort oder eine IP-Adresse pro Zeile. Es wird innerhalb von Wörtern übereinstimmen, also wird "press" mit "WordPress" übereinstimmen..', 'site-reviews' ),
 			'class' => 'large-text code',
 			'rows' => 10,
 		]);
@@ -545,12 +545,12 @@ class Settings
 		$this->addSetting( $formId, [
 			'type' => 'select',
 			'name' => 'blacklist.action',
-			'label' => __( 'Blacklist Action', 'site-reviews' ),
+			'label' => __( 'Blacklist-Aktion', 'site-reviews' ),
 			'options' => [
-				'unapprove' => __( 'Require approval', 'site-reviews' ),
-				'reject' => __( 'Reject submission', 'site-reviews' ),
+				'unapprove' => __( 'Genehmigung erforderlich', 'site-reviews' ),
+				'reject' => __( 'Einreichung ablehnen', 'site-reviews' ),
 			],
-			'desc' => __( 'Choose the action that should be taken when a review is blacklisted.', 'site-reviews' ),
+			'desc' => __( 'Wähle die Aktion aus, die ausgeführt werden soll, wenn eine Bewertung auf die schwarze Liste gesetzt wird.', 'site-reviews' ),
 		]);
 	}
 
@@ -565,7 +565,7 @@ class Settings
 			'action' => admin_url( 'options.php' ),
 			'class'  => 'glsr-strings-form',
 			'nonce'  => $this->app->id . '-settings',
-			'submit' => __( 'Save Settings', 'site-reviews' ),
+			'submit' => __( 'Einstellungen speichern', 'site-reviews' ),
 		]);
 
 		// This exists for when there are no custom translations
