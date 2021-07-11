@@ -4,7 +4,7 @@
  * Site Reviews Form shortcode button
  *
  * @package   Psource\SiteReviews
- * @copyright Copyright (c) 2017, Paul Ryley
+ * @copyright Copyright (c) 2021, DerN3rd
  * @license   GPLv3
  * @since     2.0.0
  * -------------------------------------------------------------------------------------------------
@@ -41,12 +41,12 @@ class SiteReviewsForm extends Generator
 				'type'    => 'textbox',
 				'name'    => 'title',
 				'label'   => esc_html__( 'Titel', 'site-reviews' ),
-				'tooltip' => __( 'Enter a custom shortcode heading.', 'site-reviews' ),
+				'tooltip' => __( 'Gib eine benutzerdefinierte Shortcode-Überschrift ein.', 'site-reviews' ),
 			],[
 				'type'    => 'textbox',
 				'name'    => 'description',
-				'label'   => esc_html__( 'Description', 'site-reviews' ),
-				'tooltip' => __( 'Enter a custom shortcode description.', 'site-reviews' ),
+				'label'   => esc_html__( 'Beschreibung', 'site-reviews' ),
+				'tooltip' => __( 'Gib eine benutzerdefinierte Shortcode-Beschreibung ein.', 'site-reviews' ),
 				'minWidth' => 240,
 				'minHeight' => 60,
 				'multiline' => true,
@@ -55,16 +55,16 @@ class SiteReviewsForm extends Generator
 			[
 				'type'      => 'textbox',
 				'name'      => 'assign_to',
-				'label'     => esc_html__( 'Post ID', 'site-reviews' ),
-				'tooltip'   => __( 'Assign submitted reviews to a custom page/post ID. You can also enter "post_id" to assign reviews to the ID of the current page.', 'site-reviews' ),
+				'label'     => esc_html__( 'Beitrags-ID', 'site-reviews' ),
+				'tooltip'   => __( 'Weise eingereichte Bewertungen einer benutzerdefinierten Seiten-/Beitrags-ID zu. Du kannst auch "post_id" eingeben, um Bewertungen der ID der aktuellen Seite zuzuordnen.', 'site-reviews' ),
 			],[
 				'type'     => 'textbox',
 				'name'     => 'class',
-				'label'    => esc_html__( 'Classes', 'site-reviews' ),
-				'tooltip'  => __( 'Add custom CSS classes to the shortcode.', 'site-reviews' ),
+				'label'    => esc_html__( 'Klassen', 'site-reviews' ),
+				'tooltip'  => __( 'Benutzerdefinierte CSS-Klassen zum Shortcode hinzufügen.', 'site-reviews' ),
 			],[
 				'type'    => 'container',
-				'label'   => esc_html__( 'Hide', 'site-reviews' ),
+				'label'   => esc_html__( 'Ausblenden', 'site-reviews' ),
 				'layout'  => 'grid',
 				'columns' => 2,
 				'spacing' => 5,
@@ -73,22 +73,22 @@ class SiteReviewsForm extends Generator
 						'type' => 'checkbox',
 						'name' => 'hide_email',
 						'text' => esc_html__( 'Email', 'site-reviews' ),
-						'tooltip' => __( 'Hide the email field?', 'site-reviews' ),
+						'tooltip' => __( 'E-Mail-Feld ausblenden?', 'site-reviews' ),
 					],[
 						'type' => 'checkbox',
 						'name' => 'hide_name',
 						'text' => esc_html__( 'Name', 'site-reviews' ),
-						'tooltip' => __( 'Hide the name field?', 'site-reviews' ),
+						'tooltip' => __( 'Namensfeld ausblenden?', 'site-reviews' ),
 					],[
 						'type' => 'checkbox',
 						'name' => 'hide_terms',
-						'text' => esc_html__( 'Terms', 'site-reviews' ),
-						'tooltip' => __( 'Hide the terms field?', 'site-reviews' ),
+						'text' => esc_html__( 'Bedingungen', 'site-reviews' ),
+						'tooltip' => __( 'Bedingungssfeld ausblenden?', 'site-reviews' ),
 					],[
 						'type' => 'checkbox',
 						'name' => 'hide_title',
-						'text' => esc_html__( 'Title', 'site-reviews' ),
-						'tooltip' => __( 'Hide the title field?', 'site-reviews' ),
+						'text' => esc_html__( 'Titel', 'site-reviews' ),
+						'tooltip' => __( 'Titelfeld ausblenden?', 'site-reviews' ),
 					],
 				],
 			],[

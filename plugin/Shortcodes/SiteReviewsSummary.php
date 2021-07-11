@@ -147,10 +147,10 @@ class SiteReviewsSummary extends Shortcode
 		if( in_array( 'summary', $this->args['hide'] ))return;
 		if( empty( $this->args['text'] )) {
 			 $this->args['text'] = _nx(
-				'{rating} out of {max} stars (based on %d review)',
-				'{rating} out of {max} stars (based on %d reviews)',
+				'{rating} von {max} Sternen (basierend auf %d Rezension)',
+				'{rating} von {max} Sternen (basierend auf %d Bewertungen)',
 				$count,
-				'Do not translate {rating} and {max}, they are template tags.',
+				'Übersetze nicht {rating} und {max}, das sind Vorlagen-Tags.',
 				'site-reviews'
 			);
 		}
@@ -222,11 +222,11 @@ class SiteReviewsSummary extends Shortcode
 	protected function normalizeLabels( $labels )
 	{
 		$defaults = [
-			__( 'Excellent', 'site-reviews' ),
-			__( 'Very good', 'site-reviews' ),
-			__( 'Average', 'site-reviews' ),
-			__( 'Poor', 'site-reviews' ),
-			__( 'Terrible', 'site-reviews' ),
+			__( 'Ausgezeichnet', 'site-reviews' ),
+			__( 'Sehr gut', 'site-reviews' ),
+			__( 'Durchschnittlich', 'site-reviews' ),
+			__( 'Schlecht', 'site-reviews' ),
+			__( 'Schrecklich', 'site-reviews' ),
 		];
 		$labels = explode( ',', $labels );
 		foreach( $defaults as $i => $label ) {

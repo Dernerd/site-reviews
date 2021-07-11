@@ -4,7 +4,7 @@
  * Site Reviews shortcode button
  *
  * @package   Psource\SiteReviews
- * @copyright Copyright (c) 2017, Paul Ryley
+ * @copyright Copyright (c) 2021, DerN3rd
  * @license   GPLv3
  * @since     2.0.0
  * -------------------------------------------------------------------------------------------------
